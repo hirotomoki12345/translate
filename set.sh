@@ -3,6 +3,16 @@
 REPO_URL="https://github.com/hirotomoki12345/translate.git"
 APP_DIR="translate"
 
+show_help() {
+    echo "Usage: $0 {start|stop|quit|help}"
+    echo ""
+    echo "Commands:"
+    echo "  start   Clone the repository, install dependencies, and start the application."
+    echo "  stop    Stop the application."
+    echo "  quit    Remove the application from PM2."
+    echo "  help    Show this help message."
+}
+
 case "$1" in
     start)
         if [ ! -d "$APP_DIR" ]; then
@@ -21,8 +31,12 @@ case "$1" in
         pm2 delete translate-app
         pm2 save
         ;;
+    help)
+        show_help
+        ;;
     *)
-        echo "Usage: $0 {start|stop|quit}"
+        echo "Invalid command."
+        show_help
         exit 1
         ;;
 esac
