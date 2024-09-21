@@ -13,7 +13,15 @@ show_help() {
     echo "  help    Show this help message."
 }
 
-case "$1" in
+read_command() {
+    echo "Please enter a command (start, stop, quit, help):"
+    read -r command
+    echo "$command"
+}
+
+command="${1:-$(read_command)}"
+
+case "$command" in
     start)
         if [ ! -d "$APP_DIR" ]; then
             git clone "$REPO_URL"
